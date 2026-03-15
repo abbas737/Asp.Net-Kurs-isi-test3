@@ -1,0 +1,6 @@
+@Tank_Wiki_HostAddress = http://localhost:5177
+
+GET {{Tank_Wiki_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
