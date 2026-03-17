@@ -184,3 +184,4 @@ C:\Users\vuqar\source\repos\APS.NET 01\Tank Wiki\obj\Debug\net8.0\Tank Wiki.xml
 C:\Users\vuqar\source\repos\APS.NET 01\Tank Wiki\obj\Debug\net8.0\Tank Wiki.pdb
 C:\Users\vuqar\source\repos\APS.NET 01\Tank Wiki\obj\Debug\net8.0\Tank Wiki.genruntimeconfig.cache
 C:\Users\vuqar\source\repos\APS.NET 01\Tank Wiki\obj\Debug\net8.0\ref\Tank Wiki.dll
+C:\Users\vuqar\source\repos\APS.NET 01\Tank Wiki\obj\Debug\net8.0\Tank Wiki.sourcelink.json

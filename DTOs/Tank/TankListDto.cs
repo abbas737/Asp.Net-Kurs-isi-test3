@@ -7,4 +7,7 @@ public class TankListDto
     public string Country { get; set; } = null!;
     public string Type { get; set; } = null!;
     public string? ImageUrl { get; set; }
+
+
+
 }

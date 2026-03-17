@@ -57,6 +57,17 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.WithOrigins("http://localhost:5173") 
+              .AllowAnyHeader()
+              .AllowAnyMethod()
+            .AllowCredentials();
+    });
+});
+
 // DbContext
 builder.Services.AddDbContext<TankDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionString")));
@@ -144,8 +155,11 @@ if (app.Environment.IsDevelopment())
 
 app.UseMiddleware<GlobalExceptionMiddleware>();
 
+app.UseCors();
 app.UseAuthentication();
 app.UseAuthorization();
+
+
 
 app.MapControllers();
 

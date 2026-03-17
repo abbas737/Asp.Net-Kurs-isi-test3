@@ -99,7 +99,7 @@ public class AuthService : IAuthService
         {
             Token = Guid.NewGuid().ToString(),
             ExpiresAt = DateTime.UtcNow.AddDays(7),
-            UserId = user.Id
+            UserId = user.Id!
         };
 
         _context.RefreshTokens.Add(refreshToken);
@@ -112,7 +112,7 @@ public class AuthService : IAuthService
             RefreshToken = refreshToken.Token,
             RefreshTokenExpireDate = refreshToken.ExpiresAt,
             Email = user.Email ?? string.Empty,
-            UserName = user.UserName ?? string.Empty,
+            Name = user.UserName ?? string.Empty,
             Roles = roles.ToList()
         };
     }

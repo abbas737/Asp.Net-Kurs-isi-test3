@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Tank Wiki")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+11449d9f271b8b2688b27a9cf61ddad1a42d5090")]
 [assembly: System.Reflection.AssemblyProductAttribute("Tank Wiki")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Tank Wiki")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
