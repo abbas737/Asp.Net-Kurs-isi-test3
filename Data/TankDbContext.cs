@@ -16,6 +16,8 @@ public class TankDbContext : IdentityDbContext<AppUser>
     public DbSet<General> Generals => Set<General>();
     public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
 
+    public DbSet<TankBattleVideo> TankBattleVideos => Set<TankBattleVideo>();
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
@@ -43,6 +45,19 @@ public class TankDbContext : IdentityDbContext<AppUser>
         .WithMany(t => t.Generals)
         .HasForeignKey(g => g.TankId)
         .OnDelete(DeleteBehavior.Cascade);
+
+
+        modelBuilder.Entity<TankBattleVideo>()
+        .HasOne(x => x.Tank1)
+        .WithMany()
+        .HasForeignKey(x => x.Tank1Id)
+        .OnDelete(DeleteBehavior.NoAction);
+
+        modelBuilder.Entity<TankBattleVideo>()
+            .HasOne(x => x.Tank2)
+            .WithMany()
+            .HasForeignKey(x => x.Tank2Id)
+            .OnDelete(DeleteBehavior.NoAction);
 
 
     }

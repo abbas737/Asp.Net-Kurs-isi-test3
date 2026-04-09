@@ -19,7 +19,10 @@ public class TankOfficerController : ControllerBase
     }
 
     [HttpGet("tank/{tankId}")]
-    public async Task<ActionResult<ApiResponse<PagedResult<TankOfficerDto>>>> GetAll(int tankId, int page = 1, int pageSize = 10)
+    public async Task<ActionResult<ApiResponse<PagedResult<TankOfficerDto>>>> GetAll(
+       int tankId,
+       int page = 1,
+       int pageSize = 10)
     {
         var result = await _service.GetAllTankOfficersAsync(tankId, page, pageSize);
         return Ok(ApiResponse<PagedResult<TankOfficerDto>>.successResponse(result));

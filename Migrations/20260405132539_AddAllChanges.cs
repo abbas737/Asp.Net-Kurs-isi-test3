@@ -32,8 +32,8 @@ namespace Tank_Wiki.Migrations
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     FullName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    NormalizedName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedEmail = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
@@ -208,9 +208,10 @@ namespace Tank_Wiki.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FullName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Age = table.Column<int>(type: "int", nullable: false),
+                    BirthDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DeathDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Biography = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(2000)", maxLength: 2000, nullable: true),
                     ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TankId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -226,6 +227,31 @@ namespace Tank_Wiki.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "TankBattleVideos",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Tank1Id = table.Column<int>(type: "int", nullable: false),
+                    Tank2Id = table.Column<int>(type: "int", nullable: false),
+                    VideoUrl = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TankBattleVideos", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TankBattleVideos_Tanks_Tank1Id",
+                        column: x => x.Tank1Id,
+                        principalTable: "Tanks",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_TankBattleVideos_Tanks_Tank2Id",
+                        column: x => x.Tank2Id,
+                        principalTable: "Tanks",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "TankOfficers",
                 columns: table => new
                 {
@@ -233,7 +259,8 @@ namespace Tank_Wiki.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FullName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Rank = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Age = table.Column<int>(type: "int", nullable: false),
+                    BirthDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DeathDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Biography = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -283,11 +310,11 @@ namespace Tank_Wiki.Migrations
                 column: "NormalizedEmail");
 
             migrationBuilder.CreateIndex(
-                name: "NameIndex",
+                name: "UserNameIndex",
                 table: "AspNetUsers",
-                column: "NormalizedName",
+                column: "NormalizedUserName",
                 unique: true,
-                filter: "[NormalizedName] IS NOT NULL");
+                filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Generals_TankId",
@@ -298,6 +325,16 @@ namespace Tank_Wiki.Migrations
                 name: "IX_RefreshTokens_UserId",
                 table: "RefreshTokens",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TankBattleVideos_Tank1Id",
+                table: "TankBattleVideos",
+                column: "Tank1Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TankBattleVideos_Tank2Id",
+                table: "TankBattleVideos",
+                column: "Tank2Id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TankOfficers_TankId",
@@ -328,6 +365,9 @@ namespace Tank_Wiki.Migrations
 
             migrationBuilder.DropTable(
                 name: "RefreshTokens");
+
+            migrationBuilder.DropTable(
+                name: "TankBattleVideos");
 
             migrationBuilder.DropTable(
                 name: "TankOfficers");

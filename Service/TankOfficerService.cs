@@ -19,8 +19,11 @@ public class TankOfficerService : ITankOfficerService
     public async Task<PagedResult<TankOfficerDto>> GetAllTankOfficersAsync(int tankId, int page = 1, int pageSize = 10)
     {
         var query = _context.TankOfficers
-                            .Include(o => o.Tank) 
-                            .Where(o => o.TankId == tankId);
+            .Include(o => o.Tank)
+            .Where(o => o.TankId == tankId);
+
+
+
 
         var totalCount = await query.CountAsync();
 
@@ -38,7 +41,7 @@ public class TankOfficerService : ITankOfficerService
                 Description = o.Description,
                 ImageUrl = o.ImageUrl,
                 TankId = o.TankId,
-                TankName = o.Tank.Name 
+                TankName = o.Tank.Name
             })
             .ToListAsync();
 

@@ -123,6 +123,7 @@ builder.Services.AddScoped<ITankService, TankService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IGeneralService, GeneralService>();
 builder.Services.AddScoped<ITankOfficerService, TankOfficerService>();
+builder.Services.AddScoped<ITankBattleVideoService, TankBattleVideoService>();
 
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddValidatorsFromAssemblyContaining<Program>();

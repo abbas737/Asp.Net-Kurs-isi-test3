@@ -16,29 +16,5 @@
         <member name="M:Tank_Wiki.Migrations.AddAllChanges.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
             <inheritdoc />
         </member>
-        <member name="T:Tank_Wiki.Migrations.AddGeneral">
-            <inheritdoc />
-        </member>
-        <member name="M:Tank_Wiki.Migrations.AddGeneral.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
-            <inheritdoc />
-        </member>
-        <member name="M:Tank_Wiki.Migrations.AddGeneral.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
-            <inheritdoc />
-        </member>
-        <member name="M:Tank_Wiki.Migrations.AddGeneral.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
-            <inheritdoc />
-        </member>
-        <member name="T:Tank_Wiki.Migrations.AddTankOfficers">
-            <inheritdoc />
-        </member>
-        <member name="M:Tank_Wiki.Migrations.AddTankOfficers.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
-            <inheritdoc />
-        </member>
-        <member name="M:Tank_Wiki.Migrations.AddTankOfficers.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
-            <inheritdoc />
-        </member>
-        <member name="M:Tank_Wiki.Migrations.AddTankOfficers.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
-            <inheritdoc />
-        </member>
     </members>
 </doc>

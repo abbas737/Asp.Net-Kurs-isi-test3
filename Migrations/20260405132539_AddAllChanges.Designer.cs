@@ -12,8 +12,8 @@ using Tank_Wiki.Data;
 namespace Tank_Wiki.Migrations
 {
     [DbContext(typeof(TankDbContext))]
-    [Migration("20260311131142_AddTankOfficers")]
-    partial class AddTankOfficers
+    [Migration("20260405132539_AddAllChanges")]
+    partial class AddAllChanges
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -235,7 +235,7 @@ namespace Tank_Wiki.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<string>("NormalizedName")
+                    b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
@@ -254,7 +254,7 @@ namespace Tank_Wiki.Migrations
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("UserName")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
@@ -263,10 +263,10 @@ namespace Tank_Wiki.Migrations
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
 
-                    b.HasIndex("NormalizedName")
+                    b.HasIndex("NormalizedUserName")
                         .IsUnique()
-                        .HasDatabaseName("NameIndex")
-                        .HasFilter("[NormalizedName] IS NOT NULL");
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
                 });
@@ -385,6 +385,33 @@ namespace Tank_Wiki.Migrations
                     b.ToTable("Tanks");
                 });
 
+            modelBuilder.Entity("Tank_Wiki.Models.TankBattleVideo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Tank1Id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Tank2Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("VideoUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Tank1Id");
+
+                    b.HasIndex("Tank2Id");
+
+                    b.ToTable("TankBattleVideos");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -467,6 +494,25 @@ namespace Tank_Wiki.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Tank_Wiki.Models.TankBattleVideo", b =>
+                {
+                    b.HasOne("Tank_Wiki.Models.Tank", "Tank1")
+                        .WithMany()
+                        .HasForeignKey("Tank1Id")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Tank_Wiki.Models.Tank", "Tank2")
+                        .WithMany()
+                        .HasForeignKey("Tank2Id")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Tank1");
+
+                    b.Navigation("Tank2");
                 });
 
             modelBuilder.Entity("Tank_Wiki.Models.AppUser", b =>

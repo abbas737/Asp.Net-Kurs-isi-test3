@@ -13,6 +13,7 @@ public class TankOfficerDto
     public int TankId { get; set; }
     public string TankName { get; set; } = null!;
 
+
     public int Age => DeathDate.HasValue
         ? DeathDate.Value.Year - BirthDate.Year
         : DateTime.UtcNow.Year - BirthDate.Year;
