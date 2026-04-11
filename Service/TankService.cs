@@ -130,11 +130,26 @@ public class TankService : ITankService
 
     public async Task<bool> DeleteTankAsync(int id)
     {
-        var tank = await _context.Tanks.FindAsync(id);
+        var tank = await _context.Tanks
+            .Include(t => t.Officers)
+            .Include(t => t.Generals)
+            .FirstOrDefaultAsync(t => t.Id == id);
+
         if (tank == null) return false;
 
+        var battles = await _context.TankBattleVideos
+            .Where(x => x.Tank1Id == id || x.Tank2Id == id)
+            .ToListAsync();
+
+        _context.TankBattleVideos.RemoveRange(battles);
+
+        _context.TankOfficers.RemoveRange(tank.Officers);
+        _context.Generals.RemoveRange(tank.Generals);
+
         _context.Tanks.Remove(tank);
+
         await _context.SaveChangesAsync();
+
         return true;
     }
 }

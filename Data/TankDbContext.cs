@@ -48,16 +48,16 @@ public class TankDbContext : IdentityDbContext<AppUser>
 
 
         modelBuilder.Entity<TankBattleVideo>()
-        .HasOne(x => x.Tank1)
-        .WithMany()
-        .HasForeignKey(x => x.Tank1Id)
-        .OnDelete(DeleteBehavior.NoAction);
+      .HasOne(x => x.Tank1)
+      .WithMany()
+      .HasForeignKey(x => x.Tank1Id)
+      .OnDelete(DeleteBehavior.Cascade);
 
         modelBuilder.Entity<TankBattleVideo>()
             .HasOne(x => x.Tank2)
             .WithMany()
             .HasForeignKey(x => x.Tank2Id)
-            .OnDelete(DeleteBehavior.NoAction);
+            .OnDelete(DeleteBehavior.Cascade);
 
 
     }
