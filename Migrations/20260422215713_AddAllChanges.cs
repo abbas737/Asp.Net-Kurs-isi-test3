@@ -181,6 +181,55 @@ namespace Tank_Wiki.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "EditRequests",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    EntityType = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EntityId = table.Column<int>(type: "int", nullable: false),
+                    OldDescription = table.Column<string>(type: "nvarchar(3000)", maxLength: 3000, nullable: false),
+                    NewDescription = table.Column<string>(type: "nvarchar(3000)", maxLength: 3000, nullable: false),
+                    GeneralFullName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    GeneralBirthDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    GeneralDeathDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    GeneralBiography = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    GeneralDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    GeneralImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    GeneralTankId = table.Column<int>(type: "int", nullable: true),
+                    TankName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TankCountry = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TankType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TankProductionYear = table.Column<int>(type: "int", nullable: true),
+                    TankWeight = table.Column<double>(type: "float", nullable: true),
+                    TankMainGun = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TankCrew = table.Column<int>(type: "int", nullable: true),
+                    TankDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    OfficerFullName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    OfficerRank = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    OfficerBirthDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    OfficerDeathDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    OfficerBiography = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    OfficerDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    OfficerImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    OfficerTankId = table.Column<int>(type: "int", nullable: true),
+                    OfficerTankName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false, defaultValue: "Pending"),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EditRequests", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_EditRequests_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "RefreshTokens",
                 columns: table => new
                 {
@@ -243,12 +292,14 @@ namespace Tank_Wiki.Migrations
                         name: "FK_TankBattleVideos_Tanks_Tank1Id",
                         column: x => x.Tank1Id,
                         principalTable: "Tanks",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_TankBattleVideos_Tanks_Tank2Id",
                         column: x => x.Tank2Id,
                         principalTable: "Tanks",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -317,6 +368,11 @@ namespace Tank_Wiki.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_EditRequests_UserId",
+                table: "EditRequests",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Generals_TankId",
                 table: "Generals",
                 column: "TankId");
@@ -359,6 +415,9 @@ namespace Tank_Wiki.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "EditRequests");
 
             migrationBuilder.DropTable(
                 name: "Generals");

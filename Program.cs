@@ -124,6 +124,8 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IGeneralService, GeneralService>();
 builder.Services.AddScoped<ITankOfficerService, TankOfficerService>();
 builder.Services.AddScoped<ITankBattleVideoService, TankBattleVideoService>();
+builder.Services.AddScoped<IEditRequestService, EditRequestService>();
+
 
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddValidatorsFromAssemblyContaining<Program>();

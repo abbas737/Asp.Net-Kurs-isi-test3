@@ -15,8 +15,8 @@ public class TankDbContext : IdentityDbContext<AppUser>
     public DbSet<TankOfficer> TankOfficers => Set<TankOfficer>();
     public DbSet<General> Generals => Set<General>();
     public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
-
     public DbSet<TankBattleVideo> TankBattleVideos => Set<TankBattleVideo>();
+    public DbSet<EditRequest> EditRequests => Set<EditRequest>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -48,15 +48,37 @@ public class TankDbContext : IdentityDbContext<AppUser>
 
 
         modelBuilder.Entity<TankBattleVideo>()
-      .HasOne(x => x.Tank1)
-      .WithMany()
-      .HasForeignKey(x => x.Tank1Id)
-      .OnDelete(DeleteBehavior.Cascade);
+     .HasOne(x => x.Tank1)
+     .WithMany()
+     .HasForeignKey(x => x.Tank1Id)
+     .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<TankBattleVideo>()
             .HasOne(x => x.Tank2)
             .WithMany()
             .HasForeignKey(x => x.Tank2Id)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<EditRequest>()
+    .Property(r => r.EntityType)
+    .HasConversion<string>();
+
+        modelBuilder.Entity<EditRequest>()
+            .Property(r => r.OldDescription)
+            .HasMaxLength(3000);
+
+        modelBuilder.Entity<EditRequest>()
+            .Property(r => r.NewDescription)
+            .HasMaxLength(3000);
+
+        modelBuilder.Entity<EditRequest>()
+            .Property(r => r.Status)
+            .HasDefaultValue("Pending");
+
+        modelBuilder.Entity<EditRequest>()
+            .HasOne<AppUser>()
+            .WithMany()
+            .HasForeignKey(r => r.UserId)
             .OnDelete(DeleteBehavior.Cascade);
 
 

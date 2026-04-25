@@ -12,7 +12,7 @@ using Tank_Wiki.Data;
 namespace Tank_Wiki.Migrations
 {
     [DbContext(typeof(TankDbContext))]
-    [Migration("20260405132539_AddAllChanges")]
+    [Migration("20260422215713_AddAllChanges")]
     partial class AddAllChanges
     {
         /// <inheritdoc />
@@ -271,6 +271,123 @@ namespace Tank_Wiki.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("Tank_Wiki.Models.EditRequest", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("EntityId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("EntityType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("GeneralBiography")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("GeneralBirthDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("GeneralDeathDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("GeneralDescription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("GeneralFullName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("GeneralImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("GeneralTankId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("NewDescription")
+                        .IsRequired()
+                        .HasMaxLength(3000)
+                        .HasColumnType("nvarchar(3000)");
+
+                    b.Property<string>("OfficerBiography")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("OfficerBirthDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("OfficerDeathDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("OfficerDescription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OfficerFullName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OfficerImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OfficerRank")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("OfficerTankId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("OfficerTankName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OldDescription")
+                        .IsRequired()
+                        .HasMaxLength(3000)
+                        .HasColumnType("nvarchar(3000)");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(max)")
+                        .HasDefaultValue("Pending");
+
+                    b.Property<string>("TankCountry")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("TankCrew")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TankDescription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TankMainGun")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TankName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("TankProductionYear")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TankType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double?>("TankWeight")
+                        .HasColumnType("float");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("EditRequests");
+                });
+
             modelBuilder.Entity("Tank_Wiki.Models.General", b =>
                 {
                     b.Property<int>("Id")
@@ -474,6 +591,15 @@ namespace Tank_Wiki.Migrations
                     b.Navigation("Tank");
                 });
 
+            modelBuilder.Entity("Tank_Wiki.Models.EditRequest", b =>
+                {
+                    b.HasOne("Tank_Wiki.Models.AppUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Tank_Wiki.Models.General", b =>
                 {
                     b.HasOne("Tank_Wiki.Models.Tank", "Tank")
@@ -501,13 +627,13 @@ namespace Tank_Wiki.Migrations
                     b.HasOne("Tank_Wiki.Models.Tank", "Tank1")
                         .WithMany()
                         .HasForeignKey("Tank1Id")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Tank_Wiki.Models.Tank", "Tank2")
                         .WithMany()
                         .HasForeignKey("Tank2Id")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Tank1");
