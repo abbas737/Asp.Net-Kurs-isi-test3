@@ -12,7 +12,7 @@ using Tank_Wiki.Data;
 namespace Tank_Wiki.Migrations
 {
     [DbContext(typeof(TankDbContext))]
-    [Migration("20260422215713_AddAllChanges")]
+    [Migration("20260425040936_AddAllChanges")]
     partial class AddAllChanges
     {
         /// <inheritdoc />
