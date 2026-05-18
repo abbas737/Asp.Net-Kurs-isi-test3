@@ -38,7 +38,7 @@ public class TankDbContext : IdentityDbContext<AppUser>
 
         modelBuilder.Entity<General>()
        .Property(g => g.Description)
-       .HasMaxLength(1999);
+       .HasMaxLength(2000);
 
         modelBuilder.Entity<General>()
         .HasOne(g => g.Tank)
