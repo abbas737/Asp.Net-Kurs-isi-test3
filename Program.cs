@@ -70,7 +70,14 @@ builder.Services.AddCors(options =>
 
 // DbContext
 builder.Services.AddDbContext<TankDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionString")));
+{
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("DefaultConnectionString"),
+        opt =>
+        {
+            opt.EnableRetryOnFailure();
+        });
+});
 
 // Identity
 builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
