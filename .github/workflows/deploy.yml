@@ -34,8 +34,7 @@ jobs:
           username: ${{ secrets.ec2_username }}
           key: ${{ secrets.ec2_ssh_key }}
           port: 22
-          timeout: 60s
-          command_timeout: 15m
+          timeout: 15s
           debug: true
 
           script: |
@@ -46,5 +45,5 @@ jobs:
 
             docker run -d \
               --name aspnet-app \
-              -p 808:8080 \
+              -p 8080:8080 \
               abbas737/aspnet-kurs-isi:latest
